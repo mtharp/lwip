@@ -543,6 +543,7 @@ snmp_msg_set_event(u8_t request_id, struct snmp_msg_pstat *msg_ps)
 {
   LWIP_DEBUGF(SNMP_MSG_DEBUG, ("snmp_msg_set_event: msg_ps->state==%"U16_F"\n",(u16_t)msg_ps->state));
 
+#if SNMP_WRITE
   if (msg_ps->state == SNMP_MSG_EXTERNAL_GET_OBJDEF)
   {
     struct mib_external_node *en;
@@ -788,6 +789,9 @@ snmp_msg_set_event(u8_t request_id, struct snmp_msg_pstat *msg_ps)
     msg_ps->invb.count = 0;
     snmp_ok_response(msg_ps);
   }
+#else /* SNMP_WRITE */
+  snmp_error_response(msg_ps,SNMP_ES_READONLY);
+#endif
 }
 
 

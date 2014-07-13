@@ -823,6 +823,13 @@
 #endif
 
 /**
+ * Enable SET operations.
+ */
+#ifndef SNMP_WRITE
+#define SNMP_WRITE                      1
+#endif
+
+/**
  * Only allow SNMP write actions that are 'safe' (e.g. disabeling netifs is not
  * a safe action and disabled when SNMP_SAFE_REQUESTS = 1).
  * Unsafe requests are disabled by default!
